@@ -6,21 +6,18 @@ def calc_fib(n):
     return calc_fib(n - 1) + calc_fib(n - 2)
 
 def fib_fast(n):
-    if n == 0: return 0
-    if n == 1: return 1
-    n1 = 0
-    n2 = 1
-    i = 2
-    temp = 0
     
-    while i <= n:
-        temp = n2
-        n2 += n1
-        n1 = temp
-        i += 1
+    seq = []
+    for i in range(0, n):
+        if i == 0:
+            seq.append(0)
+        elif i == 1:
+            seq.append(1)
+        else:
+            seq.append(seq[i-1] + seq[i-2])
     
-    return n2
+    return seq
 
 if __name__ == '__main__':
     n = int(input())
-    print(calc_fib(n))
+    print(fib_fast(n))
