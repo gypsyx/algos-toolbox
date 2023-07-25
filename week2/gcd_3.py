@@ -36,5 +36,6 @@ def stress_test():
 if __name__ == "__main__":
     input = input()
     a, b = map(int, input.split())
-    print(gcd_fast(a, b))
+    # print(gcd_fast(a, b))
     # stress_test()
+    print(gcd_naive(a, b))

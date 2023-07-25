@@ -1,10 +1,11 @@
-import lcm_4 as lcm, sys
-import fibonacci as fib
-import fibonacci_last_digit_2 as fibld
-import fibonacci_huge_5 as fibh
-import fibonacci_sum_last_digit_6 as fibsumlast
-import fibonacci_partial_sum_7 as fibpartial
-import fibonacci_sum_squares_8 as fibsquares
+import sys
+from week2 import lcm_4 as lcm
+from week2 import fibonacci as fib
+from week2 import fibonacci_last_digit_2 as fibld
+from week2 import fibonacci_huge_5 as fibh
+from week2 import fibonacci_sum_last_digit_6 as fibsumlast
+from week2 import fibonacci_partial_sum_7 as fibpartial
+from week2 import fibonacci_sum_squares_8 as fibsquares
 import random
 
 
