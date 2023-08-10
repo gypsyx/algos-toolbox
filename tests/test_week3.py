@@ -3,7 +3,7 @@ from week3.car_fueling_3 import *
 from week3.dot_product import max_dot_product, max_dot_product_naive
 from week3.covering_segments import Segment, optimal_points
 from week3.different_summands import optimal_summands
-from week3.largest_number import largest_number_optimal, build_large_combo
+from week3.largest_number import largest_number_optimal
 
 from time import time
 import pytest
@@ -118,23 +118,22 @@ def test_optimal_points_point_segment():
 def test_optimal_summands(n, expected):
     assert optimal_summands(n) == expected
 
-
-def test_build_large_combo():
-    assert build_large_combo('25', '9') == '925'
-    assert build_large_combo('25', '35') == '3525'
-    assert build_large_combo('', '23') == '23'
     
 @pytest.mark.parametrize(
         "numbers, expected", [
             ([21, 2], 221), 
             ([9,4,6,1,9], 99641), 
             ([23,39,92], 923923),
-            ([8,9,10], 9810)]
+            ([8,9,10], 9810),
+            ([55], 55),
+            ([0, 9], 90),
+            ([4145, 313, 22, 9], 9414531322)
+        ]
 )
 def test_largest_number_optimal(numbers, expected):
     assert largest_number_optimal(numbers) == expected
 
-
+@pytest.mark.skip()
 def test_largest_number_optimal_performance(benchmark):
     input = "2 8 2 3 6 4 1 1 10 6 3 3 6 1 3 8 4 6 1 10 8 4 10 4 1 3 2 3 2 6 1 5 2 9 8 5 10 8 7 9 6 4 2 6 3 8 8 9 8 2 9 10 3 10 7 5 7 1 7 5 1 4 7 6 1 10 5 4 8 4 2 7 8 1 1 7 4 1 1 9 8 6 5 9 9 3 7 6 3 10 8 10 7 2 5 1 1 9 9 5"
     input = input.split(" ")

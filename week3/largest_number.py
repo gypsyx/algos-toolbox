@@ -11,19 +11,34 @@ def largest_number_naive(numbers):
 
     return largest
 
+
 def largest_number_optimal(numbers):
     numbers = sorted(numbers, reverse=True)
-    salary = ''
+    i = 0
+    
+    while i < len(numbers):
+        outer = numbers[i]
+        swap = False
 
-    while numbers:
-        last = numbers.pop()
-        salary = build_large_combo(str(last), salary)
+        for j in range(i+1, len(numbers)):
+            inner = numbers[j]
+            if not is_better(str(outer), str(inner)):
+                swap = True
+                break
+        
+        if swap:
+            numbers[i], numbers[j] = numbers[j], numbers[i]
+        else:
+            i += 1
+    numbers = list(map(str, numbers))
+    salary = "".join(numbers)
     return int(salary)
 
-def build_large_combo(a, b):
-    if int(a+b) > int(b+a):
-        return a+b
-    return b+a
+def is_better(a, b):
+    if int(a+b) >= int(b+a):
+        return True
+    return False
+
 
 if __name__ == '__main__':
     _ = int(input())
