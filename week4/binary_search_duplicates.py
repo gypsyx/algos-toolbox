@@ -45,7 +45,7 @@ def binary_search_single_item_old(sorted_keys,low, high, item):
         raise Exception("shouldn't be here")
     
 def binary_search_single_item(keys,low, high, item, last_found=-1):
-    if item < keys[low] or item > keys[high] or low > high:
+    if low > high:
         return last_found
     
     mid = (high-low)//2 + low

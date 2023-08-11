@@ -3,6 +3,7 @@ from week4.binary_search import (
     binary_search_single_item
 )
 from week4 import binary_search_duplicates as bsd
+from week4 import majority_element as me
 
 class TestBinarySearch:
     def test_binary_search_single_item(self):
@@ -126,5 +127,65 @@ class TestBinarySearchDuplicates:
         assert benchmark(bsd.binary_search_old, keys, 10**9) == 0
 
 class TestMajorityElement:
+    def test_left_boundary(self):
+        keys = [1,5,5,5,6]
+        assert me.left_boundary_index(keys, 0, 2, 5) == 1
+
+        keys = [1,5,5,5,6,7]
+        assert me.left_boundary_index(keys, 0, 2, 5) == 1
+
+        keys = [5,5,5,6,7]
+        assert me.left_boundary_index(keys, 0, 2, 5) == 0
+
+    def test_right_boundary(self):
+        keys = [1,5,5,5,6]
+        assert me.right_boundary_index(keys, 2, 4, 5) == 3
+
+        keys = [1,5,5,5,6,7]
+        assert me.right_boundary_index(keys, 2, 5, 5) == 3
+
+        keys = [1,2,5,5,5,]
+        assert me.right_boundary_index(keys, 2, 4, 5) == 4
+
     def test_majority(self):
-        pass
+        keys = [1,5,5,5,6]
+        assert me.majority_element(keys) == 1
+
+        keys = [5,5,5,5,5]
+        assert me.majority_element(keys) == 1
+
+        keys = [1,5,5,5,6,7]
+        assert me.majority_element(keys) == 0
+
+        keys = [1,2,3,6]
+        assert me.majority_element(keys) == 0
+
+    def test_large_input_fast(self, benchmark):
+        # NOTE: although this is slower than the test with majority_element_naive for this use case
+        # coursera seems to accept this solution as 'fast' so it must be fast enough!
+        # TODO - try using a mergesort and counting while sorting and see how this performs
+        keys = [10**9]*100000
+        assert benchmark(me.majority_element, keys) == 1
+    
+    def test_large_input_naive(self, benchmark):
+        keys = [10**9]*100000
+        assert benchmark(me.majority_element_naive, keys) == 1
+
+
+    def test_large_input_not_found(self, benchmark):
+        # all unique elements
+        keys = []
+        for i in (0, 100.000):
+            keys.append(i)
+        
+        assert benchmark(me.majority_element, keys) == 0
+
+    
+    def test_large_input_not_found_naive(self, benchmark):
+        # all unique elements
+        keys = []
+        for i in (0, 100.000):
+            keys.append(i)
+        
+        assert benchmark(me.majority_element_naive, keys) == 0
+
