@@ -1,34 +1,21 @@
 
+
 def binary_search(keys, query):
     # write your code here
-    index_dict = {}
-
-    if query in index_dict:
-        return index_dict.get(query)
-    
-    last_found = -1
+    """
+    TODO:
+    Using binary_search_single_item_old() inside a while loop here to repeatedly
+    call it shrinking the search space seems to be FAR(100-200x) slower than doing 
+    all this inside the binary_search_single_item(). Try to figure out why doing
+    algorithmic analysis
+    """
     high = len(keys)-1
-
-    while True:
-        found = binary_search_single_item(keys, 0, high, query)
-        if found < 0:
-            break
-        elif found ==0:
-            last_found = 0
-            break
-        else:
-            high = high - 1
-            last_found = found
-
-    return last_found
+    index = binary_search_single_item(keys, 0, high, query)
+    return index
 
 def binary_search_old(keys, query):
     # write your code here
-    index_dict = {}
-
-    if query in index_dict:
-        return index_dict.get(query)
-    index = binary_search_single_item(keys, 0, len(keys)-1, query)
+    index = binary_search_single_item_old(keys, 0, len(keys)-1, query)
     index = min_index(keys, index, query)
     return index
 
@@ -42,8 +29,7 @@ def min_index(keys, current_index, item):
     return i
 
 
-
-def binary_search_single_item(sorted_keys,low, high, item):
+def binary_search_single_item_old(sorted_keys,low, high, item):
     if item < sorted_keys[low] or item > sorted_keys[high]:
         return -1
     
@@ -57,6 +43,20 @@ def binary_search_single_item(sorted_keys,low, high, item):
         return binary_search_single_item(sorted_keys, mid+1, high, item)
     else:
         raise Exception("shouldn't be here")
+    
+def binary_search_single_item(keys,low, high, item, last_found=-1):
+    if item < keys[low] or item > keys[high] or low > high:
+        return last_found
+    
+    mid = (high-low)//2 + low
+
+    if keys[mid] == item:
+        last_found = mid
+        return binary_search_single_item(keys, low, mid-1, item, last_found)
+    elif item < keys[mid]:
+        return binary_search_single_item(keys, low, mid-1, item, last_found)
+    elif item > keys[mid]:
+        return binary_search_single_item(keys, mid+1, high, item, last_found)
 
 
 if __name__ == '__main__':
